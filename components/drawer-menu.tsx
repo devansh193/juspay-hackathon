@@ -126,8 +126,12 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
             )}
 
             {/* Menu Stack Animation */}
-            <div className="overflow-hidden">
-              <AnimatePresence custom={direction}>
+            <motion.div
+              className="overflow-hidden"
+              animate={{ height: "auto" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
+              <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                   key={menuStack.length}
                   custom={direction}
@@ -158,7 +162,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
                   </motion.div>
                 </motion.div>
               </AnimatePresence>
-            </div>
+            </motion.div>
           </motion.div>
         </>
       )}
