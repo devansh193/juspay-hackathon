@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { DrawerMenuProps, MenuItem } from "@/types";
 import React, { useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, AnimatePresence, Variants, PanInfo } from "framer-motion";
 
 export const DrawerMenu: React.FC<DrawerMenuProps> = ({
   isOpen,
@@ -38,6 +38,17 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
       setMenuStack((prev) => prev.slice(0, -1));
     }
   }, [menuStack.length]);
+
+  const handleDragEnd = useCallback(
+    (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+      const threshold = 300;
+      const velocity = info.velocity.y;
+      if (info.offset.y > threshold || velocity > 500) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   const slideVariants: Variants = {
     enter: (dir: "forward" | "back") => ({
@@ -106,11 +117,20 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={{ top: 0, bottom: 0.5 }}
+            onDragEnd={handleDragEnd}
             className="absolute bottom-0 left-0 right-0 z-50 mx-2 mb-8 bg-background shadow-lg rounded-3xl overflow-hidden"
             role="dialog"
             aria-modal="true"
             aria-labelledby="drawer-title"
           >
+            {/* Drag bar */}
+            <div className="flex justify-center pt-3 pb-2 cursor-grab active:cursor-grabbing">
+              <div className="w-12 h-1.5 bg-muted-foreground/30 rounded-full" />
+            </div>
+
             {/* Back Button */}
             {!isRootMenu && (
               <div className="flex items-center px-6 py-2">
@@ -118,7 +138,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleBack}
-                  className="flex items-center gap-x-3  hover:bg-muted transition-colors px-3 py-2 rounded-full"
+                  className="flex items-center gap-x-3 hover:bg-muted transition-colors px-3 py-2 rounded-full"
                   aria-label="Go back to previous menu"
                 >
                   <ChevronLeft className="h-5 w-5" />

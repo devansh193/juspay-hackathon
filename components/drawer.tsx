@@ -1,16 +1,16 @@
 "use client";
 import { useState } from "react";
-import { MobileMockup } from "./mobile-mockup";
 import { MenuItem } from "@/types";
-import { DrawerMenu } from "./drawer-menu";
-import { APP_DRAWER_ITEMS } from "@/data";
 import { Button } from "./ui/button";
+import { APP_DRAWER_ITEMS } from "@/data";
+import { DrawerMenu } from "./drawer-menu";
+import { MobileMockup } from "./mobile-mockup";
 
 export const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleNavigate = (item: MenuItem) => {
-    console.log("Navigated to:", item.label);
+    console.log(`Navigating to: ${item}`);
   };
 
   return (
