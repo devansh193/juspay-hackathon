@@ -81,7 +81,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring", stiffness: 300, damping: 30 },
+      transition: { type: "spring", stiffness: 200, damping: 30 },
     },
   };
 
@@ -118,7 +118,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleBack}
-                  className="flex items-center gap-x-3 rounded-lg hover:bg-muted transition-colors px-3 py-2"
+                  className="flex items-center gap-x-3  hover:bg-muted transition-colors px-3 py-2 rounded-full"
                   aria-label="Go back to previous menu"
                 >
                   <ChevronLeft className="h-5 w-5" />
