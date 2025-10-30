@@ -41,18 +41,25 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
 
   const slideVariants: Variants = {
     enter: (dir: "forward" | "back") => ({
-      x: dir === "forward" ? 1000 : -1000,
-      opacity: 0,
+      x: dir === "forward" ? "100%" : "-100%",
+      opacity: 1,
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
     }),
     center: {
       x: 0,
       opacity: 1,
-      zIndex: 1,
+      position: "relative",
     },
     exit: (dir: "forward" | "back") => ({
-      x: dir === "forward" ? -1000 : 1000,
-      opacity: 0,
-      zIndex: 0,
+      x: dir === "forward" ? "-100%" : "100%",
+      opacity: 1,
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
     }),
   };
 
@@ -126,12 +133,8 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
             )}
 
             {/* Menu Stack Animation */}
-            <motion.div
-              className="overflow-hidden"
-              animate={{ height: "auto" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            >
-              <AnimatePresence mode="wait" custom={direction}>
+            <div className="relative overflow-hidden">
+              <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                   key={menuStack.length}
                   custom={direction}
@@ -140,10 +143,12 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
                   animate="center"
                   exit="exit"
                   transition={{
-                    x: { type: "spring", stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.2 },
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 40,
+                    mass: 0.8,
                   }}
-                  className="px-2 py-2"
+                  className="px-2 py-2 w-full"
                 >
                   <motion.div
                     variants={containerVariants}
@@ -162,7 +167,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
                   </motion.div>
                 </motion.div>
               </AnimatePresence>
-            </motion.div>
+            </div>
           </motion.div>
         </>
       )}
