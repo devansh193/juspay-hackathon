@@ -12,14 +12,12 @@ export const MobileMockup: React.FC<MobileMockupProps> = ({
   className,
 }) => {
   return (
-    <div
-      className={cn("flex items-center justify-center h-screen p-4", className)}
-    >
+    <div className={cn("flex items-center justify-center p-4", className)}>
       <div className="relative w-full max-w-sm">
         <div className="relative bg-black rounded-[60px] shadow-2xl overflow-hidden border-8 border-gray-900">
           <div
             className="relative w-full bg-white overflow-hidden"
-            style={{ aspectRatio: "9/19.5" }}
+            style={{ aspectRatio: "9/18" }}
           >
             <div className="absolute top-2 left-1/2 -translate-x-1/2 z-20 w-28 h-7 bg-black rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]" />
             <div

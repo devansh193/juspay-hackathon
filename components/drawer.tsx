@@ -14,7 +14,7 @@ export const Drawer = () => {
   };
 
   return (
-    <div className="min-h-screen ">
+    <div className="h-screen">
       <MobileMockup>
         <div className="h-full flex flex-col items-center justify-center">
           <Button
